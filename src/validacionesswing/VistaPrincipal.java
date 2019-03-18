@@ -17,15 +17,18 @@ import javax.swing.JTextField;
  */
 public class VistaPrincipal extends javax.swing.JFrame {
 
+    String palabra;
+    String letras;
+    String mostrar;
+
     /**
      * Creates new form VistaPrincipal
      */
     final DefaultListModel model = new DefaultListModel();
-    
+
     public VistaPrincipal() {
         initComponents();
 
-     
         btnEnviar.setEnabled(false);
         rbgAcciones.add(rbtnLetras);
         rbgAcciones.add(rbtnPalabra);
@@ -62,6 +65,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         lstElementos = new javax.swing.JList<>();
         rbtnPalabra = new javax.swing.JRadioButton();
         rbtnLetras = new javax.swing.JRadioButton();
+        chbxOrdenar = new javax.swing.JCheckBox();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -85,6 +89,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         rbtnLetras.setText("letras");
 
+        chbxOrdenar.setText("ordenar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,16 +102,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(btnEnviar))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(102, 102, 102)
                         .addComponent(rbtnPalabra)
                         .addGap(18, 18, 18)
                         .addComponent(rbtnLetras))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(78, 78, 78)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(140, 140, 140)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnEnviar)
+                            .addComponent(chbxOrdenar))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -117,9 +125,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbtnPalabra)
                     .addComponent(rbtnLetras))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
+                .addComponent(chbxOrdenar)
+                .addGap(11, 11, 11)
                 .addComponent(btnEnviar)
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(68, Short.MAX_VALUE))
         );
@@ -128,22 +138,47 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        palabra = txtString.getText();
+        String mostrar;
+
         Contador contador = new Contador();
         if (rbtnPalabra.isSelected()) {
+            
+            palabra=txtString.getText();
+            mostrar="usted introdujo "+palabra.split("\\W").length+" palabra";
+            model.addElement(mostrar);
             String[] listaPalabras = contador.contadorPalabras(txtString.getText());
 
             for (String a : listaPalabras) {
                 System.out.println(a);
                 model.addElement(a);
-              }
-            
-        } else if(rbtnLetras.isSelected()) {
+            }
 
+        } else if (rbtnLetras.isSelected()) {
+            letras = txtString.getText();
+            
+            mostrar="usted introdujo "+letras.toCharArray().length+" letras";
+            model.addElement(mostrar);
+
+            String[] listaLetras = contador.contadorLetras(txtString.getText());
+
+            for (String b : listaLetras) {
+                System.out.println(b);
+                model.addElement(b);
+
+            }
         }
-        
-        lstElementos.setModel(model);
-      
+        if(chbxOrdenar.isSelected()){
+       String[] nuevoorden= contador.ordenar(txtString.getText());
+       for (String c: nuevoorden){
+       model.addElement(c);
+       }
+
+}
+            lstElementos.setModel(model);
+
     }//GEN-LAST:event_btnEnviarActionPerformed
+    
 
     /**
      * @param args the command line arguments
@@ -182,6 +217,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;
+    private javax.swing.JCheckBox chbxOrdenar;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
