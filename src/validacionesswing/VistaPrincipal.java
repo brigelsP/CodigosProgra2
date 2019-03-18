@@ -143,42 +143,53 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         Contador contador = new Contador();
         if (rbtnPalabra.isSelected()) {
-            
-            palabra=txtString.getText();
-            mostrar="usted introdujo "+palabra.split("\\W").length+" palabra";
-            model.addElement(mostrar);
-            String[] listaPalabras = contador.contadorPalabras(txtString.getText());
+            palabra = txtString.getText();
 
-            for (String a : listaPalabras) {
-                System.out.println(a);
-                model.addElement(a);
+            if (chbxOrdenar.isSelected()) {
+                mostrar = "el orden de " + palabra.split("\\W").length + " letras es:";
+                model.addElement(mostrar);
+                String[] nuevoorden2 = contador.ordenarpalabras(txtString.getText());
+                for (String d : nuevoorden2) {
+                    model.addElement(d);
+                }
+
+            } else {
+
+                mostrar = "usted introdujo " + palabra.split("\\W").length + " palabra";
+                model.addElement(mostrar);
+                String[] listaPalabras = contador.contadorPalabras(txtString.getText());
+
+                for (String a : listaPalabras) {
+                    System.out.println(a);
+                    model.addElement(a);
+                }
             }
 
         } else if (rbtnLetras.isSelected()) {
             letras = txtString.getText();
-            
-            mostrar="usted introdujo "+letras.toCharArray().length+" letras";
-            model.addElement(mostrar);
+            if (chbxOrdenar.isSelected()) {
+                mostrar = "el orden de " + letras.toCharArray().length + " letras es:";
+                model.addElement(mostrar);
+                String[] nuevoorden = contador.ordenarletras(txtString.getText());
+                for (String c : nuevoorden) {
+                    model.addElement(c);
+                }
+            } else {
 
-            String[] listaLetras = contador.contadorLetras(txtString.getText());
+                mostrar = "usted introdujo " + letras.toCharArray().length + " letras";
+                model.addElement(mostrar);
 
-            for (String b : listaLetras) {
-                System.out.println(b);
-                model.addElement(b);
+                String[] listaLetras = contador.contadorLetras(txtString.getText());
 
+                for (String b : listaLetras) {
+                    model.addElement(b);
+                }
             }
-        }
-        if(chbxOrdenar.isSelected()){
-       String[] nuevoorden= contador.ordenar(txtString.getText());
-       for (String c: nuevoorden){
-       model.addElement(c);
-       }
 
-}
-            lstElementos.setModel(model);
+        }
+        lstElementos.setModel(model);
 
     }//GEN-LAST:event_btnEnviarActionPerformed
-    
 
     /**
      * @param args the command line arguments
