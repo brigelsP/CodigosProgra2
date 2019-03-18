@@ -76,6 +76,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        txtString.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtStringKeyTyped(evt);
+            }
+        });
+
         btnEnviar.setText("Enviar");
         btnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,14 +113,15 @@ public class VistaPrincipal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(rbtnLetras))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(140, 140, 140)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnEnviar)
                             .addComponent(chbxOrdenar))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,9 +136,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addComponent(chbxOrdenar)
                 .addGap(11, 11, 11)
                 .addComponent(btnEnviar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         pack();
@@ -187,9 +194,20 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
 
         }
+        else{
+            mostrar="seleccione alguna opcion, si palabra o letra";
+            model.addElement(mostrar);
+        }
         lstElementos.setModel(model);
 
     }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void txtStringKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStringKeyTyped
+        // TODO add your handling code here:
+        
+        if(Character.isDigit(evt.getKeyChar())){
+        evt.consume();}
+    }//GEN-LAST:event_txtStringKeyTyped
 
     /**
      * @param args the command line arguments
