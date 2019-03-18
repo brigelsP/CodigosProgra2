@@ -153,7 +153,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             palabra = txtString.getText();
 
             if (chbxOrdenar.isSelected()) {
-                mostrar = "el orden de " + palabra.split("\\W").length + " letras es:";
+                mostrar = "el orden de " + palabra.split("\\W").length + " palabras es:";
                 model.addElement(mostrar);
                 String[] nuevoorden2 = contador.ordenarpalabras(txtString.getText());
                 for (String d : nuevoorden2) {
